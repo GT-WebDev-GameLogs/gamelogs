@@ -2,13 +2,27 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
-import { createRootRoute, createRouter, RootRoute, RouterProvider } from '@tanstack/react-router'
+import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from '@tanstack/react-router'
 
 const rootRoute = createRootRoute({
-  component: () => <App/>
+  component: () => (
+    <>
+      <Outlet />
+      {/* This is the main layout that applies to all pages,
+        should contain globally common components, e.g. headers and footers,
+        feel free to create a separate tsx file for the main layout
+      */}
+    </>
+  )
 });
 
-const routeTree: RootRoute = rootRoute;
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  component: () => <App />,
+  path: '/'
+});
+
+const routeTree = rootRoute.addChildren([ indexRoute ]);
 const router = createRouter({ routeTree });
 
 createRoot(document.getElementById('root')!).render(
