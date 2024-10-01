@@ -1,12 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
+import Navbar from './components/Navbar.tsx'
 import './index.css'
 import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from '@tanstack/react-router'
 
 const rootRoute = createRootRoute({
   component: () => (
     <>
+      <Navbar />
       <Outlet />
       {/* This is the main layout that applies to all pages,
         should contain globally common components, e.g. headers and footers,
