@@ -1,6 +1,6 @@
 const Navbar = () => {
     return (
-        <nav className="fixed top-0 left-0 w-full px-4 py-2 text-white z-50 bg-[#242424]">
+        <nav className="fixed top-0 left-0 w-full px-4 py-2 text-white z-50 bg-black">
             <div className="w-full flex justify-between items-center">
             <h1 className="pl-5 text-lg font-bold">
                 <a href="/">GameLogs</a>
