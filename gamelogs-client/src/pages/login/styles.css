@@ -7,20 +7,20 @@ body, html {
 
 .background {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     overflow: hidden;
 }
 
 .image-slider {
-    position: relative;
+    position: relative; /* needs to be flex*/
     width: 60%;
     height: 100%;
     overflow: hidden;
 }
 
 .image-slider img {
-    position: absolute;
+    position: absolute; /* remove */
     top: 0;
     left: 0;
     width: 100%;
@@ -49,6 +49,7 @@ This is a gradient that I'm working on. Not fully finished
 */
 
 .login-container {
+    flex: 40%;
     width: 40%;
     display: flex;
     justify-content: center;

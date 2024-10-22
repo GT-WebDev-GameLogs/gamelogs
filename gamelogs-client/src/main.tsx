@@ -4,6 +4,7 @@ import App from './App.tsx'
 import Navbar from './components/Navbar.tsx'
 import './index.css'
 import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from '@tanstack/react-router'
+import Login from './pages/login/Login.tsx'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -24,7 +25,13 @@ const indexRoute = createRoute({
   path: '/'
 });
 
-const routeTree = rootRoute.addChildren([ indexRoute ]);
+const loginRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    component: () => <Login />,
+    path: '/login'
+});
+
+const routeTree = rootRoute.addChildren([ indexRoute, loginRoute ]);
 const router = createRouter({ routeTree });
 
 createRoot(document.getElementById('root')!).render(
