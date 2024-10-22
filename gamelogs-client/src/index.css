@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -56,7 +58,7 @@ button {
   padding: 0.5em 0.8em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
+  font-family: 'Inter';
   background-color: #2B1E5A;
   cursor: pointer;
 }
