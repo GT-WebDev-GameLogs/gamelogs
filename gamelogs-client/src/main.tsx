@@ -5,6 +5,7 @@ import Navbar from './components/Navbar.tsx'
 import './index.css'
 import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from '@tanstack/react-router'
 import Login from './pages/login/Login.tsx'
+import Game from './Game.tsx'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -31,7 +32,13 @@ const loginRoute = createRoute({
     path: '/login'
 });
 
-const routeTree = rootRoute.addChildren([ indexRoute, loginRoute ]);
+const gameRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    component: () => <Game />,
+    path: '/game'
+})
+
+const routeTree = rootRoute.addChildren([ indexRoute, loginRoute, gameRoute ]);
 const router = createRouter({ routeTree });
 
 createRoot(document.getElementById('root')!).render(
