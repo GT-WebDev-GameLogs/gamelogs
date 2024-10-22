@@ -60,7 +60,7 @@ const categories: GameCategory[] = [
 
 function App() {
   return (  
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen overflow-x-hidden">
       <main className="h-full">
         
         {/*Hero Section*/}
