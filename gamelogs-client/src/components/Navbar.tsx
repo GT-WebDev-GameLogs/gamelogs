@@ -5,9 +5,12 @@ const Navbar = () => {
                 <h1 className="pl-5 text-lg font-bold">
                     <a href="/">GameLogs</a>
                 </h1>
-                <div className="relative pr-5">
-                    <button className="flex items-center space-x-2 hover:underline">
-                        Sign In
+                <div className="relative pr-5 flex space-x-4">
+                    <div className="flex items-center">
+                        <a href="/">Log In</a>
+                    </div>
+                    <button className="flex items-center space-x-2">
+                        Sign Up
                     </button>
                 </div>
             </div>
