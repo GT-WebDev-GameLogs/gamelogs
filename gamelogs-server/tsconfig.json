@@ -7,6 +7,7 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "noEmit": true,
+    "rootDir": "./src",
     "allowImportingTsExtensions": true,
     "outDir": "dist",
     "lib": [ "ESNext" ],

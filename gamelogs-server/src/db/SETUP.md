@@ -6,11 +6,11 @@ Download PostgreSQL locally [here](https://www.enterprisedb.com/downloads/postgr
 After installing, you should be able to run the command `createdb gamelogs`, which creates a local database named `gamelogs`. If this error occurs, installation may not have worked properly, restarting your machine may be required, and/or run `psql` first to open the psql shell and run the command again. If there are issues, follow the steps on the [official getting started tutorial](https://www.postgresql.org/docs/current/tutorial-createdb.html).
 
 ## Initializing Database Schema
-There is a script inside `gamelogs-server/db/scripts` named `init_schema.sql`. Running this with the command `psql -U <your_machine_user> -d gamelogs -a -f .\gamelogs-server\db\scripts\init_schema.sql` should initialize all the tables, domains, functions, etc.
+There is a script inside `gamelogs-server/src/db/scripts` named `init_schema.sql`. Running this with the command `psql -U <your_machine_user> -d gamelogs -a -f .\gamelogs-server\src\db\scripts\init_schema.sql` should initialize all the tables, domains, functions, etc.
 Modify the name of your machine user accordingly (which you can find by running `psql` to get into the psql shell and then `\l` to list the databases and relevant info). Also modify the path of the sql script file if needed (the above path is assuming you are running it from the project root directory).
 
 ## Initializing Database Data
-There is a script inside `gamelogs-server/db/scripts` named `init_data.sql`. Running this with the command `psql -U <your_machine_user> -d gamelogs -a -f .\gamelogs-server\db\scripts\init_data.sql` should initialize sample data for the tables defined in the previous step.
+There is a script inside `gamelogs-server/src/db/scripts` named `init_data.sql`. Running this with the command `psql -U <your_machine_user> -d gamelogs -a -f .\gamelogs-server\src\db\scripts\init_data.sql` should initialize sample data for the tables defined in the previous step.
 Again, you will need to modify the machine user name and also maybe the path of the sql script file.
 
 ## Verify Installation and Setup

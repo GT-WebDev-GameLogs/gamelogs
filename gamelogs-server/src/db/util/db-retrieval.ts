@@ -6,7 +6,7 @@ interface GameInfo {
     gameName: string,
 }
 
-export async function retrieveGame(gameId: Number): GameInfo {
+export async function retrieveGame(gameId: Number): Promise<GameInfo> {
     const client = new Client();
     client.connect();
     const res = await client.query('CALL <procedure>');
