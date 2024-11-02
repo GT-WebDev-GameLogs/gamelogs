@@ -179,7 +179,7 @@ async function addToGameTable(igdbOffset: number, limit: number = 500) {
   }
 }
 
-async function fillGameTable() {
+async function fillDatabase() {
 
 }
 
