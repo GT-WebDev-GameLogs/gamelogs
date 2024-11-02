@@ -24,37 +24,37 @@ CREATE DOMAIN valid_rating AS INT
 
 CREATE TABLE platform (
     platform_id     INT,
-    platform_name   VARCHAR(50),
+    platform_name   TEXT,
     PRIMARY KEY     (platform_id)
 );
 
 CREATE TABLE theme (
     theme_id        INT,
-    theme_name      VARCHAR(50),
+    theme_name      TEXT,
     PRIMARY KEY     (theme_id)
 );
 
 CREATE TABLE keyword (
     keyword_id     INT,
-    keyword_name   VARCHAR(50),
+    keyword_name   TEXT,
     PRIMARY KEY    (keyword_id)
 );
 
 CREATE TABLE gamemode (
     gamemode_id    INT,
-    gamemode_name  VARCHAR(50),
+    gamemode_name  TEXT,
     PRIMARY KEY    (gamemode_id)
 );
 
 CREATE TABLE genre (
     genre_id       INT,
-    genre_name     VARCHAR(50),
+    genre_name     TEXT,
     PRIMARY KEY    (genre_id)
 );
 
 CREATE TABLE game (
     game_id             INT,
-    game_name           VARCHAR(50),
+    game_name           TEXT,
     rating              REAL DEFAULT 0,
     game_description    TEXT,
     PRIMARY KEY         (game_id),
@@ -95,7 +95,7 @@ CREATE TABLE game_genre (
 
 CREATE TABLE involved_company (
     company_id      INT,
-    company_name    VARCHAR(50),
+    company_name    TEXT,
     developer       BOOLEAN,
     publisher       BOOLEAN,
     PRIMARY KEY (company_id)
@@ -127,7 +127,7 @@ CREATE TABLE game_platform (
 
 CREATE TABLE gl_user (
     user_id          INT,
-    user_name        VARCHAR(50),
+    user_name        TEXT,
     user_biography   TEXT,
     PRIMARY KEY      (user_id),
     UNIQUE           (user_name)
@@ -182,12 +182,12 @@ FOR EACH ROW
 EXECUTE FUNCTION after_insert_review();
 
 -- trigger to validate game publisher or developer reference
-CREATE OR REPLACE FUNCTION validate_company_reference(IN company_id INT, IN company_type TEXT) RETURNS BOOLEAN AS $$
+CREATE OR REPLACE FUNCTION validate_company_reference(IN company_id INT, IN company_type TEXT) RETURNS VOID AS $$
 DECLARE
     query TEXT;
     query_res INT := 0;
 BEGIN
-    IF gc_company_id IS NOT NULL THEN
+    IF company_id IS NOT NULL THEN
         query := format('
             SELECT 1 FROM involved_company
             WHERE company_id = %L AND %I = TRUE
@@ -195,7 +195,7 @@ BEGIN
 
         EXECUTE query INTO query_res;
 
-        IF query = 0 THEN
+        IF query_res = 0 THEN
             RAISE EXCEPTION 'Invalid company reference with id: %, type: %', company_id, company_type;
         END IF;
     END IF;
@@ -209,9 +209,9 @@ BEGIN
     company_type := TG_ARGV[0];
     CASE company_type
         WHEN 'publisher' THEN
-            CALL validate_company_reference(NEW.publisher_id, company_type);
+            PERFORM validate_company_reference(NEW.publisher_id, company_type);
         WHEN 'developer' THEN
-            CALL validate_company_reference(NEW.developer_id, company_type);
+            PERFORM validate_company_reference(NEW.developer_id, company_type);
         ELSE
             RAISE EXCEPTION 'Invalid company type: %', company_type;
     END CASE;
@@ -221,11 +221,11 @@ $$ LANGUAGE plpgsql;
 
 -- trigger to update game rating once a review is inserted
 CREATE OR REPLACE TRIGGER after_insert_game_developer_trigger
-AFTER INSERT ON game_developer
+BEFORE INSERT ON game_developer
 FOR EACH ROW
 EXECUTE FUNCTION after_insert_game_company('developer');
 
 CREATE OR REPLACE TRIGGER after_insert_game_publisher_trigger
-AFTER INSERT ON game_publisher
+BEFORE INSERT ON game_publisher
 FOR EACH ROW
 EXECUTE FUNCTION after_insert_game_company('publisher');

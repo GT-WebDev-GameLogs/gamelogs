@@ -2,8 +2,8 @@ import axios from 'axios';
 import 'dotenv/config';
 
 export async function getAccessToken(): Promise<string | null> {
-    const clientId = process.env.CLIENT_ID;
-    const clientSecret = process.env.CLIENT_SECRET;
+    const clientId = process.env.IGDB_CLIENT_ID || process.env.CLIENT_ID;
+    const clientSecret = process.env.IGDB_CLIENT_SECRET || process.env.CLIENT_SECRET;
 
     try {
         const response = await axios.post('https://id.twitch.tv/oauth2/token', null, {
