@@ -1,11 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './Login.tsx'
+import App from './App.tsx'
 import Navbar from './components/Navbar.tsx'
 import './index.css'
 import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from '@tanstack/react-router'
-import Login from './pages/login/Login.tsx'
-import Game from './Game.tsx'
+import Login from './Login.tsx'
 
 const rootRoute = createRootRoute({
   component: () => (

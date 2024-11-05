@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/App.css';
-import googleLogo from '../images/google.png';
+import '../login-styles/App.css';
+import googleLogo from '../assets/images/google.png';
 
 const LoginForm = () => {
     return (
