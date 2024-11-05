@@ -1,9 +1,9 @@
 import React from 'react';
 import ImageSlider from './components/ImageSlider';
 import LoginForm from './components/LoginForm';
-import './styles/App.css';
+import './login-styles/App.css';
 
-const App = () => {
+const Login = () => {
     return (
         <div className="background">
             <ImageSlider />
@@ -12,4 +12,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default Login;

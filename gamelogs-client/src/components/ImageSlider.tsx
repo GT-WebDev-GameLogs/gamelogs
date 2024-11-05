@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import bo6 from '../images/bo6.png';
-import botw from '../images/botw-featured.jpg';
-import sparking from '../images/sparking.jpg';
-import metaphor from '../images/metaphor.jpg';
-import league from '../images/league.png';
+import bo6 from '../assets/images/bo6.png';
+import botw from '../assets/images/botw-featured.jpg';
+import sparking from '../assets/images/sparking.jpg';
+import metaphor from '../assets/images/metaphor.jpg';
+import league from '../assets/images/league.png';
 
 const ImageSlider = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
