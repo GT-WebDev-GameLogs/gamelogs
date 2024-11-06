@@ -9,7 +9,6 @@ import Login from './Login.tsx'
 const rootRoute = createRootRoute({
   component: () => (
     <>
-      <Navbar />
       <Outlet />
       {/* This is the main layout that applies to all pages,
         should contain globally common components, e.g. headers and footers,
@@ -19,19 +18,31 @@ const rootRoute = createRootRoute({
   )
 });
 
-const indexRoute = createRoute({
+const navbarRoute = createRoute({
   getParentRoute: () => rootRoute,
+  component: () => (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  ),
+  path: '*'
+});
+
+const indexRoute = createRoute({
+  getParentRoute: () => navbarRoute,
   component: () => <App />,
-  path: '/'
+  path: '/',
 });
 
 const loginRoute = createRoute({
-    getParentRoute: () => rootRoute,
-    component: () => <Login />,
-    path: '/login'
-  });
+  getParentRoute: () => rootRoute,
+  component: () => <Login />,
+  path: '/login'
+});
 
-const routeTree = rootRoute.addChildren([ indexRoute, loginRoute ]);
+const navbarRouteTree = navbarRoute.addChildren([ indexRoute ]);
+const routeTree = rootRoute.addChildren([ navbarRouteTree, loginRoute ]);
 const router = createRouter({ routeTree });
 
 createRoot(document.getElementById('root')!).render(
