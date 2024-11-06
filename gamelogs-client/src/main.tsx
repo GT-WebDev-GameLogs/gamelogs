@@ -1,15 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
-import Navbar from './components/Navbar.tsx'
 import './index.css'
 import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from '@tanstack/react-router'
-import Login from './Login.tsx'
+import GamePage from './GamePage.tsx'
 
 const rootRoute = createRootRoute({
   component: () => (
     <>
-      <Navbar />
       <Outlet />
       {/* This is the main layout that applies to all pages,
         should contain globally common components, e.g. headers and footers,
@@ -25,13 +23,13 @@ const indexRoute = createRoute({
   path: '/'
 });
 
-const loginRoute = createRoute({
-    getParentRoute: () => rootRoute,
-    component: () => <Login />,
-    path: '/login'
-  });
+const gameRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  component: () => <GamePage />,
+  path: '/name_game'
+});
 
-const routeTree = rootRoute.addChildren([ indexRoute, loginRoute ]);
+const routeTree = rootRoute.addChildren([ indexRoute, gameRoute]);
 const router = createRouter({ routeTree });
 
 createRoot(document.getElementById('root')!).render(
