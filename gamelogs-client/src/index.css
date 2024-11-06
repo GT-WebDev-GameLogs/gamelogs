@@ -8,7 +8,6 @@
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #000000;
@@ -19,11 +18,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body, #root {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 a {
   font-weight: 500;
   color: #ffffff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
   text-decoration: underline;
@@ -54,8 +61,8 @@ button {
   font-family: 'Inter';
   background-color: #2B1E5A;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #C6CBCA;
 }
@@ -69,9 +76,7 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
-  }
+
   button {
     background-color: #f9f9f9;
   }

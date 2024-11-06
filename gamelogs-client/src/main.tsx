@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
 import Navbar from './components/Navbar.tsx'
 import './index.css'
 import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from '@tanstack/react-router'
+import App from './App.tsx'
 import Login from './Login.tsx'
+import GamePage from './GamePage.tsx'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -26,7 +27,7 @@ const navbarRoute = createRoute({
       <Outlet />
     </>
   ),
-  path: '*'
+  id: 'navbarlayout',
 });
 
 const indexRoute = createRoute({
@@ -41,7 +42,13 @@ const loginRoute = createRoute({
   path: '/login'
 });
 
-const navbarRouteTree = navbarRoute.addChildren([ indexRoute ]);
+const gameRoute = createRoute({
+  getParentRoute: () => navbarRoute,
+  component: () => <GamePage />,
+  path: '/name_game'
+});
+
+const navbarRouteTree = navbarRoute.addChildren([ indexRoute, gameRoute ]);
 const routeTree = rootRoute.addChildren([ navbarRouteTree, loginRoute ]);
 const router = createRouter({ routeTree });
 
