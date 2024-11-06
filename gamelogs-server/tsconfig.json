@@ -9,6 +9,7 @@
     "noEmit": true,
     "rootDir": "./src",
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "dist",
     "lib": [ "ESNext" ],
     "types": [ "node" ],

@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 // Function to get game data
-export async function getGameData(clientId: string, accessToken: string, searchQuery: string) {
+export async function getGameData(clientId: string, accessToken: string, query: string = 'fields *; limit 10;') {
     try {
       const response = await axios.post(
         'https://api.igdb.com/v4/games',
-        `search "${searchQuery}"; fields id, name, platforms, genres, rating, release_dates; limit 10;`,
+        query,
         {
           headers: {
             'Client-ID': clientId,
@@ -13,7 +13,7 @@ export async function getGameData(clientId: string, accessToken: string, searchQ
           },
         }
       );
-      console.log('IGDB API response:', response.data);  // Log the response
+      // console.log('IGDB API response:', response.data);  // Log the response
       return response.data;
     } catch (error) {
       console.error('Error fetching game data from IGDB:', error);  // Log detailed error

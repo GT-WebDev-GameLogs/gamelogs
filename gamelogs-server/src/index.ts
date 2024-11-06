@@ -88,10 +88,10 @@ app.get('/games', async (req: Request, res: Response) => {
       return res.status(500).json({ error: 'Failed to get access token' });
     }
 
-    const searchQuery = req.query.search as string || 'Halo';
+    const query = req.query.query as string || 'search "Halo"; fields id, name, platforms.name, genres.name, rating, first_release_date; limit 10;';
 
-    const clientId = process.env.CLIENT_ID;
-    const gameData = await getGameData(clientId, accessToken, searchQuery);
+    const clientId = process.env.IGDB_CLIENT_ID || process.env.CLIENT_ID;
+    const gameData = await getGameData(clientId, accessToken, query);
 
     if (!gameData) {
       console.log('Game data is empty or invalid.');
@@ -100,9 +100,9 @@ app.get('/games', async (req: Request, res: Response) => {
 
     console.log('Raw game data from IGDB:', gameData);  // Log the raw game data
 
-    const enrichedGameData = await fetchGameWithPlatformAndGenres(clientId, accessToken, gameData);
+    // const enrichedGameData = await fetchGameWithPlatformAndGenres(clientId, accessToken, gameData);
 
-    res.json(enrichedGameData);
+    res.json(gameData);
   } catch (error) {
     console.error('Error during game data fetching:', error);  // Log the error message
     res.status(500).json({ error: 'Error fetching game details' });
@@ -116,6 +116,7 @@ app.get('/games-with-details', async (req: Request, res: Response) => {
     if (!gameName) {
       return res.status(400).json({ error: 'Please provide a game name as a query parameter' });
     }
+    const query = `search "${gameName}"; fields id, name, platforms.name, genres.name, rating, first_release_date; limit 10;`;
 
     const accessToken = await getAccessToken();
     if (!accessToken) {
@@ -123,11 +124,11 @@ app.get('/games-with-details', async (req: Request, res: Response) => {
       return res.status(500).json({ error: 'Failed to get access token' });
     }
 
-    const clientId = process.env.CLIENT_ID;
+    const clientId = process.env.IGDB_CLIENT_ID || process.env.CLIENT_ID;
     console.log(`Searching for game: ${gameName}`);
 
     // Fetch game data from IGDB
-    const gameData = await getGameData(clientId, accessToken, gameName);
+    const gameData = await getGameData(clientId, accessToken, query);
     console.log("Raw game data from IGDB:", gameData); // Log raw game data
 
     // Check if the gameData is empty or null
@@ -137,7 +138,8 @@ app.get('/games-with-details', async (req: Request, res: Response) => {
     }
 
     // Enrich game data with platform and genre names
-    const enrichedGameData = await fetchGameWithPlatformAndGenres(clientId, accessToken, gameData);
+    // const enrichedGameData = await fetchGameWithPlatformAndGenres(clientId, accessToken, gameData);
+    const enrichedGameData = gameData;
     console.log("Enriched game data:", enrichedGameData); // Log enriched game data
 
     res.json(enrichedGameData);
