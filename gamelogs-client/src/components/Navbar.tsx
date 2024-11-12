@@ -7,11 +7,13 @@ const Navbar = () => {
             </h1>
             <div className="relative pr-5 flex space-x-4">
                 <div className="flex items-center">
-                <a href="/">Log In</a>
+                <a href="/login">Log In</a>
                 </div>
-                <button className="flex items-center space-x-2">
-                Sign Up
-                </button>
+                <form action="/login">
+                  <button className="flex items-center space-x-2">
+                    Sign Up
+                  </button>
+                </form>
             </div>
             </div>
         </nav>
