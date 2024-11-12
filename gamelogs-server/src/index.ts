@@ -8,13 +8,18 @@ import { google } from 'googleapis';
 import { getGameData, fetchGameWithPlatformAndGenres } from './gameApi.ts';
 
 import { getOAuthAPIClient, getOAuthAuthenticator } from './get-auth';
+import validateLoggedIn from './middleware/auth.ts';
 
 const app: Express = express();
 const PORT: string = process.env.PORT || '7776';
 const ACCESS_TOKEN_COOKIE_NAME: string = process.env.ACCESS_TOKEN_COOKIE_NAME;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 app.use(cookieParser());
+app.use('/auth-api/', validateLoggedIn)
 
 app.get('/', async (req: Request, res: Response) => {
   let helloMessage;
@@ -48,8 +53,8 @@ app.get('/callback', async (req: Request, res: Response) => {
 
   const { data } = await oauth2.userinfo.get();
   console.log(data);
-  res.cookie(ACCESS_TOKEN_COOKIE_NAME, JSON.stringify(tokens), { httpOnly: true })
-  res.redirect('/')
+  res.cookie(ACCESS_TOKEN_COOKIE_NAME, JSON.stringify(tokens), { httpOnly: true, sameSite: 'lax', domain: 'localhost' })
+  res.redirect('http://localhost:5173/')
 });
 
 app.get('/test', async (req: Request, res: Response) => {
@@ -67,6 +72,10 @@ app.get('/test', async (req: Request, res: Response) => {
   }
 
   res.send(`<p>Test endpoint ${testMessage}</p>`);
+});
+
+app.post('/auth-api/post-review/:gameId', async (req: Request, res: Response) => {
+  return res.send("hello");
 });
 
 app.get('/get-twitch-token', async (req: Request, res: Response) => {

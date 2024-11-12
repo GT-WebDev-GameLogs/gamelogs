@@ -5,7 +5,7 @@ import googleLogo from '../assets/images/google.png';
 const LoginForm = () => {
     return (
         <div className="login-container">
-            <form className="login-form">
+            <div className="login-form">
                 <h2>Login to GameLogs</h2>
                 <div className="input-group">
                     <label htmlFor="email">Email</label>
@@ -16,16 +16,18 @@ const LoginForm = () => {
                     <input type="password" id="password" placeholder="Enter your password" required />
                 </div>
                 <button type="submit" className="btn login-btn">Login</button>
-                <button type="button" className="btn google-btn">
-                    <img src={googleLogo} alt="Google" style={{ width: '18px', marginRight: '8px' }} /> Login with Google
-                </button>
+                <form action="http://localhost:7776/login">
+                  <button type="submit" className="btn google-btn">
+                      <img src={googleLogo} alt="Google" style={{ width: '18px', marginRight: '8px' }} /> Login with Google
+                  </button>
+                </form>
                 <div className="forgot-password">
                     <a href="#">Forgot your password?</a>
                 </div>
                 <div className="signup-link">
                     Don't have an account? <a href="#">Sign up</a>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };
