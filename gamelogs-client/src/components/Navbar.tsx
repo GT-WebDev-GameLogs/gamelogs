@@ -9,7 +9,7 @@ const Navbar = () => {
                 <div className="flex items-center">
                 <a href="/login">Log In</a>
                 </div>
-                <form action="/login">
+                <form action="/profile">
                   <button className="flex items-center space-x-2">
                     Sign Up
                   </button>
