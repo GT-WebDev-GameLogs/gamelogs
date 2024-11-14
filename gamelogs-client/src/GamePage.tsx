@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import GameBanner from './components/GameBanner';
 import GameDescription from './components/GameDescription';
 import Reviews from './components/Reviews';
