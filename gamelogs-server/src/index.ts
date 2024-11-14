@@ -78,6 +78,13 @@ app.post('/auth-api/post-review/:gameId', async (req: Request, res: Response) =>
   return res.send("hello");
 });
 
+app.post('/auth-api/get-user-info', async (req: Request, res: Response) => {
+  const tokens = JSON.parse(req.cookies[ACCESS_TOKEN_COOKIE_NAME])
+  const oauth2 = getOAuthAPIClient(tokens);
+  const { data } = await oauth2.userinfo.get();
+  res.json(data);
+});
+
 app.get('/get-twitch-token', async (req: Request, res: Response) => {
   try {
     const token = await getAccessToken();
