@@ -1,4 +1,3 @@
-import React from 'react';
 import ImageSlider from './components/ImageSlider';
 import LoginForm from './components/LoginForm';
 import './login-styles/App.css';

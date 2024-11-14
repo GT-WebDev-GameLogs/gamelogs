@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -66,9 +66,22 @@ button {
 button:hover {
   border-color: #C6CBCA;
 }
-button:focus,
+/* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+} */
+
+.show-more-button {
+  border: 0px solid transparent;
+  padding: 0em;
+  font-family: 'Inter';
+  font-weight: 700;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.show-more-button:hover {
+  text-decoration: underline;
 }
 
 @media (prefers-color-scheme: light) {
