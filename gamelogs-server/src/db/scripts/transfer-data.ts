@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import axios from 'axios';
 import pg from 'pg';
-import { getGameData } from '../../gameApi';
-import { getAccessToken } from 'src/twitchApi';
+import { getGameData } from '../../gameApi.ts';
+import { getAccessToken } from 'src/twitchApi.ts';
 
 const { Client } = pg;
 const pgConfig: pg.ConnectionConfig = {

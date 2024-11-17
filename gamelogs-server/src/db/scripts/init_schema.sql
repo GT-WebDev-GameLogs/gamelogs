@@ -139,6 +139,7 @@ CREATE TABLE review (
     game_id              INT,
     rating               VALID_RATING,
     review_description   TEXT,
+    review_date          TIMESTAMP,
     PRIMARY KEY          (review_id),
     FOREIGN KEY          (user_id) REFERENCES gl_user(user_id),
     FOREIGN KEY          (game_id) REFERENCES game(game_id),

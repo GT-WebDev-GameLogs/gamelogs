@@ -53,6 +53,10 @@ app.get('/callback', async (req: Request, res: Response) => {
 
   const { data } = await oauth2.userinfo.get();
   console.log(data);
+
+  // add user to backend db
+
+  // save to cookie
   res.cookie(ACCESS_TOKEN_COOKIE_NAME, JSON.stringify(tokens), { httpOnly: true, sameSite: 'lax', domain: 'localhost' })
   res.redirect('http://localhost:5173/')
 });
