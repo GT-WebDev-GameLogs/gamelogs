@@ -20,7 +20,11 @@ export async function retrieveGame(gameId: Number) {
     // console.log(res.rows)
     // console.log(multivalue.rows)
     // console.log(reviews.rows)
-    return [ res, multivalue, reviews ];
+    return {
+      base: res.rows, 
+      multivalue: multivalue.rows,
+      reviews: reviews.rows
+    };
 }
 
 export async function retrieveUser(userId: Number, offset: Number = 0, limit: Number = 10) {
@@ -30,5 +34,8 @@ export async function retrieveUser(userId: Number, offset: Number = 0, limit: Nu
   const reviewInfo = await client.query(`SELECT * FROM get_user_reviews(${userId}, ${offset}, ${limit})`)
   // console.log(userInfo.rows);
   // console.log(reviewInfo.rows);
-  return [ userInfo, reviewInfo ]
+  return {
+    base: userInfo.rows,
+    reviews: reviewInfo.rows,
+  }
 }

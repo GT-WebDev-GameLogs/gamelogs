@@ -3,8 +3,15 @@ import GameBanner from './components/GameBanner';
 import GameDescription from './components/GameDescription';
 import Reviews from './components/Reviews';
 import AddReview from './components/AddReview';
+import { useLoaderData } from '@tanstack/react-router';
 
-function App() {
+function App({ route }: { route: any }) {
+  let gameData = undefined;
+  try {
+    gameData = useLoaderData({ from: route });
+  } catch (e) {
+    console.log(e);
+  }
   const [reviews, setReviews] = useState([
     { username: 'user1', time: '3 days ago', review: 'Loved the game!' },
     { username: 'user2', time: '1 week ago', review: 'Amazing experience.' },

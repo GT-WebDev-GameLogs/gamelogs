@@ -84,12 +84,22 @@ $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION
 get_game_reviews(IN p_game_id INT, IN p_offset INT, IN p_limit INT)
-RETURNS SETOF review
+RETURNS TABLE(
+    review_id            INT,
+    user_id              INT,
+    game_id              INT,
+    rating               VALID_RATING,
+    review_description   TEXT,
+    review_date          TIMESTAMP,
+    user_name            TEXT
+)
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT *
+    SELECT r.*, u.user_name
     FROM review r
+    INNER JOIN gl_user u
+    ON u.user_id = r.user_id
     WHERE r.game_id = p_game_id
     ORDER BY r.review_date DESC
     LIMIT p_limit
@@ -99,12 +109,22 @@ $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION
 get_user_reviews(IN p_user_id INT, IN p_offset INT, IN p_limit INT)
-RETURNS SETOF review
+RETURNS TABLE(
+    review_id            INT,
+    user_id              INT,
+    game_id              INT,
+    rating               VALID_RATING,
+    review_description   TEXT,
+    review_date          TIMESTAMP,
+    user_name            TEXT
+)
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT *
+    SELECT r.*, u.user_name
     FROM review r
+    INNER JOIN gl_user u
+    ON u.user_id = r.user_id
     WHERE r.user_id = p_user_id
     ORDER BY r.review_date DESC
     LIMIT p_limit

@@ -1,22 +1,23 @@
 -- Drop all tables and structures
+DROP TABLE IF EXISTS user_follower;
 DROP TABLE IF EXISTS user_game_backlog;
 DROP TABLE IF EXISTS review;
 DROP TABLE IF EXISTS gl_user;
-DROP TABLE IF EXISTS game_platform;
-DROP TABLE IF EXISTS game_publisher;
-DROP TABLE IF EXISTS game_developer;
-DROP TABLE IF EXISTS involved_company;
-DROP TABLE IF EXISTS game_theme;
-DROP TABLE IF EXISTS game_keyword;
-DROP TABLE IF EXISTS game_gamemode;
-DROP TABLE IF EXISTS game_genre;
-DROP TABLE IF EXISTS theme;
-DROP TABLE IF EXISTS keyword;
-DROP TABLE IF EXISTS gamemode;
-DROP TABLE IF EXISTS genre;
-DROP TABLE IF EXISTS game;
-DROP TABLE IF EXISTS platform;
-DROP DOMAIN IF EXISTS valid_rating;
+-- DROP TABLE IF EXISTS game_platform;
+-- DROP TABLE IF EXISTS game_publisher;
+-- DROP TABLE IF EXISTS game_developer;
+-- DROP TABLE IF EXISTS involved_company;
+-- DROP TABLE IF EXISTS game_theme;
+-- DROP TABLE IF EXISTS game_keyword;
+-- DROP TABLE IF EXISTS game_gamemode;
+-- DROP TABLE IF EXISTS game_genre;
+-- DROP TABLE IF EXISTS theme;
+-- DROP TABLE IF EXISTS keyword;
+-- DROP TABLE IF EXISTS gamemode;
+-- DROP TABLE IF EXISTS genre;
+-- DROP TABLE IF EXISTS game;
+-- DROP TABLE IF EXISTS platform;
+-- DROP DOMAIN IF EXISTS valid_rating;
 
 CREATE DOMAIN valid_rating AS INT
     CHECK (value >= 1 AND value <= 5)
@@ -129,6 +130,10 @@ CREATE TABLE gl_user (
     user_id          INT,
     user_name        TEXT,
     user_biography   TEXT,
+    user_pfp_uri     TEXT,
+    num_reviews      INT,
+    num_followers    INT,
+    num_following    INT,
     PRIMARY KEY      (user_id),
     UNIQUE           (user_name)
 );
@@ -152,6 +157,14 @@ CREATE TABLE user_game_backlog (
     PRIMARY KEY  (user_id, game_id),
     FOREIGN KEY  (user_id) REFERENCES gl_user(user_id),
     FOREIGN KEY  (game_id) REFERENCES game(game_id)
+);
+
+CREATE TABLE user_follower (
+    user_id     INT,
+    follower_id INT,
+    PRIMARY KEY (user_id, follower_id),
+    FOREIGN KEY (user_id) REFERENCES gl_user(user_id),
+    FOREIGN KEY (follower_id) REFERENCES gl_user(user_id)
 );
 
 CREATE OR REPLACE PROCEDURE

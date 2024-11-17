@@ -44,15 +44,29 @@ const loginRoute = createRoute({
 });
 
 const gameRoute = createRoute({
+  path: '/game/$gameId',
   getParentRoute: () => navbarRoute,
-  component: () => <GamePage />,
-  path: '/name_game'
+  component: ({ route }) => <GamePage route={route} />,
+  loader: async ({ params }) => {
+    const res = await fetch(`http://localhost:7776/get-game-info/${params.gameId}`)
+    if (!res.ok) {
+      throw new Error(`Failed to load game data for game ${params.gameId}`)
+    }
+    return await res.json();
+  },
 });
 
 const userRoute = createRoute({
   getParentRoute: () => navbarRoute,
-  component: () => <UserProfile />,
-  path: '/profile'
+  component: ({ route }) => <UserProfile route={route}/>,
+  path: '/profile/$userId',
+  loader: async ({ params }) => {
+    const res = await fetch(`http://localhost:7776/get-user-info/${params.userId}`);
+    if (!res.ok) {
+      throw new Error(`Failed to load user data for user ${params.userId}`)
+    }
+    return await res.json();
+  }
 });
 
 const navbarRouteTree = navbarRoute.addChildren([ indexRoute, gameRoute, userRoute ]);

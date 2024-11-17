@@ -9,6 +9,7 @@ import { getGameData, fetchGameWithPlatformAndGenres } from './gameApi.ts';
 
 import { getOAuthAPIClient, getOAuthAuthenticator } from './get-auth';
 import validateLoggedIn from './middleware/auth.ts';
+import { retrieveGame, retrieveUser } from './db/util/db-retrieval.ts';
 
 const app: Express = express();
 const PORT: string = process.env.PORT || '7776';
@@ -87,6 +88,24 @@ app.post('/auth-api/get-user-info', async (req: Request, res: Response) => {
   const oauth2 = getOAuthAPIClient(tokens);
   const { data } = await oauth2.userinfo.get();
   res.json(data);
+});
+
+app.get('/get-game-info/:gameId', async (req: Request, res: Response) => {
+  try {
+    res.json(await retrieveGame(parseInt(req.params.gameId)));
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Game id unrecognized");
+  }
+});
+
+app.get('/get-user-info/:userId', async (req: Request, res: Response) => {
+  try {
+    res.json(await retrieveUser(parseInt(req.params.userId)));
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("User id unrecognized");
+  }
 });
 
 app.get('/get-twitch-token', async (req: Request, res: Response) => {

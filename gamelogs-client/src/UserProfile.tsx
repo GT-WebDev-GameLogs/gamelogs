@@ -1,3 +1,4 @@
+import { useLoaderData } from '@tanstack/react-router';
 import { useState } from 'react';
 
 interface Review {
@@ -39,7 +40,13 @@ const user: User = {
     description: 'descriptions are cool. if they get too long they start to disappear.',
 };
 
-export default function UserProfile() {
+export default function UserProfile({ route }: { route: any }) {
+  let userData = undefined;
+  try {
+    userData = useLoaderData({ from: route })
+  } catch (e) {
+    console.log(e);
+  }
     const [isDescExpanded, setDescExpanded] = useState(false);
 
     const toggleDescExpand = () => {
