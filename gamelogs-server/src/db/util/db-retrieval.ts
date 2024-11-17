@@ -15,10 +15,12 @@ export async function retrieveGame(gameId: Number) {
     const client = new Client(pgConfig);
     client.connect();
     const res = await client.query(`SELECT * FROM get_game_info(${gameId})`);
+    const multivalue = await client.query(`SELECT * FROM get_game_multivalue_info(${gameId})`)
     const reviews = await client.query(`SELECT * FROM get_game_reviews(${gameId}, 0, 10)`)
     // console.log(res.rows)
+    // console.log(multivalue.rows)
     // console.log(reviews.rows)
-    return [res, reviews];
+    return [ res, multivalue, reviews ];
 }
 
 export async function retrieveUser(userId: Number, offset: Number = 0, limit: Number = 10) {
