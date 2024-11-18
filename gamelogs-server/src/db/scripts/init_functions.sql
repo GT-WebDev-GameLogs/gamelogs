@@ -116,15 +116,18 @@ RETURNS TABLE(
     rating               VALID_RATING,
     review_description   TEXT,
     review_date          TIMESTAMP,
-    user_name            TEXT
+    user_name            TEXT,
+    game_name            TEXT
 )
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT r.*, u.user_name
+    SELECT r.*, u.user_name, g.game_name
     FROM review r
     INNER JOIN gl_user u
     ON u.user_id = r.user_id
+    INNER JOIN game g
+    ON g.game_id = r.game_id
     WHERE r.user_id = p_user_id
     ORDER BY r.review_date DESC
     LIMIT p_limit

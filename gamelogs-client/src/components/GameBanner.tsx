@@ -1,4 +1,4 @@
-const GameBanner = () => {
+const GameBanner = ({ name }: { name: string }) => {
     return (
       <div className="relative w-full">
         <img 
@@ -8,7 +8,7 @@ const GameBanner = () => {
         />
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <h1 className="text-5xl font-bold text-white">
-            The Legend of Zelda: Breath of the Wild
+            { name }
           </h1>
         </div>
       </div>

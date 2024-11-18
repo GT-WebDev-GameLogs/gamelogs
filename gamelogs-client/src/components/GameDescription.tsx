@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-const GameDescription = () => {
-  const fullDescription = `The Legend of Zelda: Breath of the Wild is a 2017 action-adventure game developed and published by Nintendo for the Nintendo Switch and Wii U. Set at the end of the Zelda timeline, the player controls an amnesiac Link as he sets out to save Princess Zelda and prevent Calamity Ganon. The game offers an open world with a focus on exploration and freedom. Players can tackle objectives in any order, using a variety of weapons, abilities, and strategies. It's a groundbreaking title that redefined open-world gameplay and received critical acclaim for its innovation.`;
+const GameDescription = ({ description, rating }: { description: any, rating: any }) => {
+  // const sampleDescription = `The Legend of Zelda: Breath of the Wild is a 2017 action-adventure game developed and published by Nintendo for the Nintendo Switch and Wii U. Set at the end of the Zelda timeline, the player controls an amnesiac Link as he sets out to save Princess Zelda and prevent Calamity Ganon. The game offers an open world with a focus on exploration and freedom. Players can tackle objectives in any order, using a variety of weapons, abilities, and strategies. It's a groundbreaking title that redefined open-world gameplay and received critical acclaim for its innovation.`;
+  const fullDescription = description;
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (

@@ -17,7 +17,7 @@ interface User {
     description: string;
 }
 
-const reviews: Review[] = [
+const sampleReviews: Review[] = [
     { title: 'Game One', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
     { title: 'Game Two', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
     { title: 'Game Three', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
@@ -30,23 +30,45 @@ const reviews: Review[] = [
     { title: 'Game Ten', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
 ];
 
-const user: User = {
+const sampleUser: User = {
     pfp: 'https://yt3.googleusercontent.com/xjLBdnHzQcr5SQyxwjAPJD6r6Z-pANaqnWJCJQ9sT9rY48hOv0F3EjmH9rQHJ392jC8QCbkU=s900-c-k-c0x00ffffff-no-rj',
     name: 'Zechariah Frierson',
     username: 'techolon',
-    reviews: reviews,
+    reviews: sampleReviews,
     followers: 200,
     following: 132,
     description: 'descriptions are cool. if they get too long they start to disappear.',
 };
 
 export default function UserProfile({ route }: { route: any }) {
-  let userData = undefined;
+  let user: User;
+  let reviews: Review[];
   try {
-    userData = useLoaderData({ from: route })
+    const userData = useLoaderData({ from: route })
+    const baseUserData = userData['base'][0];
+    reviews = userData['reviews'].map((review: any) => {
+      return {
+        title: review['game_name'],
+        date: review['review_date'],
+        description: review['review_description'],
+      }
+    });
+    user = {
+      pfp: baseUserData['user_pfp_uri'],
+      name: baseUserData['user_name'],
+      username: baseUserData['user_id'],
+      reviews: reviews,
+      followers: baseUserData['num_followers'],
+      following: baseUserData['num_following'],
+      description: baseUserData['user_biography'],
+    }
+    // console.log(userData);
   } catch (e) {
+    user = sampleUser;
+    reviews = sampleReviews;
     console.log(e);
   }
+  console.log(user);
     const [isDescExpanded, setDescExpanded] = useState(false);
 
     const toggleDescExpand = () => {
@@ -71,7 +93,7 @@ export default function UserProfile({ route }: { route: any }) {
                     <img src={user.pfp} alt="Profile Pic" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                    <h1 className="text-2xl font-semibold">Zechariah Frierson</h1>
+                    <h1 className="text-2xl font-semibold">{user.name}</h1>
                     <p className="text-gray-400">@{user.username} | {user.reviews.length} reviews | {user.followers} followers | {user.following} following</p>
                     <p>
                         {isDescExpanded ? user.description : user.description.slice(0, 60) + '...'}
