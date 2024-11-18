@@ -58,73 +58,160 @@ const categories: GameCategory[] = [
   },
 ];
 
+const cardHeight = '15vh';
+
 function App() {
   return (  
     <div className="w-screen h-screen overflow-x-hidden">
       <main className="h-full">
-        
         {/*Hero Section*/}
-        <section className="relative h-4/5">
-          <div className="absolute inset-0 bg-black/50 z-10"></div>
-          <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
+        <section className="relative h-3/5 my-16">
+            <div className="absolute inset-0 bg-black opacity-50 z-30 w-full -mt-4" style={{ height: '120%' }}></div>
+          <div className="absolute inset-0 flex flex-col justify-center items-center z-50">
             <h1 className="text-9xl font-black text-white">GameLogs</h1>
           </div>
-            <div className="absolute top-0 w-full h-full flex flex-col gap-6 z-0 justify-center">
-              <div className="flex gap-4 animate-scroll-right">
-                {[...games, ...games].map((game, idx) => (
-                  <div key={idx} className="h-36 py-2 px-4 rounded-lg" style={{ minWidth: '14rem', backgroundColor: game.thumbnail }}>
-                    <div className="flex flex-col justify-end h-full">
-                      <h3 className="text-md font-regular flex justify-between">
-                        <span>{game.title}</span>
-                        <span>{game.logo}</span>
-                      </h3>
-                    </div>
+
+
+          <div className="relative w-full h-full flex flex-col gap-4 z-0 justify-start">
+            <div className="flex gap-4 animate-scroll-right" style={{ width: "200%" }}>
+              {games.concat(...games, ...games).map((game, idx) => (
+                <div
+                  key={idx}
+                  className="py-2 px-4 rounded-lg"
+                  style={{
+                    minWidth: `calc(3/2 * ${cardHeight})`,
+                    height: cardHeight,
+                    backgroundColor: game.thumbnail,
+                  }}
+                >
+                  <div className="flex flex-col justify-end h-full">
+                    <h3 className="text-xs font-regular flex justify-between items-end">
+                      <span>{game.title}</span>
+                      <span>{game.logo}</span>
+                    </h3>
                   </div>
-                ))}
-              </div>
-              <div className="flex gap-4 animate-scroll-left">
-                {[...games, ...games].map((game, idx) => (
-                  <div key={idx} className="h-36 py-2 px-4 rounded-lg" style={{ minWidth: '14rem', backgroundColor: game.thumbnail }}>
-                    <div className="flex flex-col justify-end h-full">
-                      <h3 className="text-md font-regular flex justify-between">
-                        <span>{game.title}</span>
-                        <span>{game.logo}</span>
-                      </h3>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-4 animate-scroll-right">
-                {[...games, ...games].map((game, idx) => (
-                  <div key={idx} className="h-36 py-2 px-4 rounded-lg" style={{ minWidth: '14rem', backgroundColor: game.thumbnail }}>
-                    <div className="flex flex-col justify-end h-full">
-                      <h3 className="text-md font-regular flex justify-between">
-                        <span>{game.title}</span>
-                        <span>{game.logo}</span>
-                      </h3>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-4 animate-scroll-left">
-                {[...games, ...games].map((game, idx) => (
-                  <div key={idx} className="h-36 py-2 px-4 rounded-lg" style={{ minWidth: '14rem', backgroundColor: game.thumbnail }}>
-                    <div className="flex flex-col justify-end h-full">
-                      <h3 className="text-md font-regular flex justify-between">
-                        <span>{game.title}</span>
-                        <span>{game.logo}</span>
-                      </h3>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
+            <div className="flex gap-4 animate-scroll-left" style={{ width: "200%" }}>
+              {games.concat(...games, ...games).map((game, idx) => (
+                <div
+                  key={idx}
+                  className="py-2 px-4 rounded-lg"
+                  style={{
+                    minWidth: `calc(3/2 * ${cardHeight})`,
+                    height: cardHeight,
+                    backgroundColor: game.thumbnail,
+                  }}
+                >
+                  <div className="flex flex-col justify-end h-full">
+                    <h3 className="text-xs font-regular flex justify-between items-end">
+                      <span>{game.title}</span>
+                      <span>{game.logo}</span>
+                    </h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-4 animate-scroll-right" style={{ width: "200%" }}>
+              {games.concat(...games, ...games).map((game, idx) => (
+                <div
+                  key={idx}
+                  className="py-2 px-4 rounded-lg"
+                  style={{
+                    minWidth: `calc(3/2 * ${cardHeight})`,
+                    height: cardHeight,
+                    backgroundColor: game.thumbnail,
+                  }}
+                >
+                  <div className="flex flex-col justify-end h-full">
+                    <h3 className="text-xs font-regular flex justify-between items-end">
+                      <span>{game.title}</span>
+                      <span>{game.logo}</span>
+                    </h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-4 animate-scroll-left" style={{ width: "200%" }}>
+              {games.concat(...games, ...games).map((game, idx) => (
+                <div
+                  key={idx}
+                  className="py-2 px-4 rounded-lg"
+                  style={{
+                    minWidth: `calc(3/2 * ${cardHeight})`,
+                    height: cardHeight,
+                    backgroundColor: game.thumbnail,
+                  }}
+                >
+                  <div className="flex flex-col justify-end h-full">
+                    <h3 className="text-xs font-regular flex justify-between items-end">
+                      <span>{game.title}</span>
+                      <span>{game.logo}</span>
+                    </h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+{/* 
+            <div className="relative w-full h-full flex flex-col gap-4 z-0 justify-start">
+              <div className="flex gap-4 animate-scroll-right">
+                {[...games, ...games].map((game, idx) => (
+                  <div key={idx} className="py-2 px-4 rounded-lg" style={{ minWidth: `calc(3/2 * ${cardHeight})`, height: cardHeight, backgroundColor: game.thumbnail }}>
+                  <div className="flex flex-col justify-end h-full">
+                    <h3 className="text-xs font-regular flex justify-between items-end">
+                    <span>{game.title}</span>
+                    <span>{game.logo}</span>
+                    </h3>
+                  </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-4 animate-scroll-left">
+                {[...games, ...games].map((game, idx) => (
+                  <div key={idx} className="py-2 px-4 rounded-lg" style={{ minWidth: `calc(3/2 * ${cardHeight})`, height: cardHeight, backgroundColor: game.thumbnail }}>
+                  <div className="flex flex-col justify-end h-full">
+                    <h3 className="text-xs font-regular flex justify-between items-end">
+                    <span>{game.title}</span>
+                    <span>{game.logo}</span>
+                    </h3>
+                  </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-4 animate-scroll-right">
+                {[...games, ...games].map((game, idx) => (
+                  <div key={idx} className="py-2 px-4 rounded-lg" style={{ minWidth: `calc(3/2 * ${cardHeight})`, height: cardHeight, backgroundColor: game.thumbnail }}>
+                  <div className="flex flex-col justify-end h-full">
+                    <h3 className="text-xs font-regular flex justify-between items-end">
+                    <span>{game.title}</span>
+                    <span>{game.logo}</span>
+                    </h3>
+                  </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-4 animate-scroll-left">
+                {[...games, ...games].map((game, idx) => (
+                  <div key={idx} className="py-2 px-4 rounded-lg" style={{ minWidth: `calc(3/2 * ${cardHeight})`, height: cardHeight, backgroundColor: game.thumbnail }}>
+                  <div className="flex flex-col justify-end h-full">
+                    <h3 className="text-xs font-regular flex justify-between items-end">
+                    <span>{game.title}</span>
+                    <span>{game.logo}</span>
+                    </h3>
+                  </div>
+                  </div>
+                ))}
+              </div>
+            </div> */}
         </section>
 
         {/*News Section*/}
-        <section className="mb-8 p-4">
+        <section className="p-4">
           <div>
-            <h2 className="text-2xl font-medium mb-4">Latest News</h2>
+            <h2 className="text-2xl font-semibold my-4">Latest News</h2>
               <div className="flex gap-4 overflow-x-auto w-full">
                 {news.map((item, index) => (
                   <div key={index} className="h-64 py-3 px-5 rounded-lg mr-4" style={{ minWidth: '25rem', backgroundColor: item.thumbnail }}>
@@ -143,7 +230,7 @@ function App() {
         {/*Recommended Games Section*/}
         <section className="mb-8 p-4">
           <div>
-            <h2 className="text-2xl font-medium mb-4">Recommended Games</h2>
+            <h2 className="text-2xl font-semibold my-4 text-left text-white">Recommended Games</h2>
             {categories.map((category, index) => (
               <div key={index} className="mb-6">
                 <h3 className="text-xl font-bold mb-2">{category.title}</h3>

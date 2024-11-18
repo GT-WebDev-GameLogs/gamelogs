@@ -7,6 +7,7 @@ import App from './App.tsx'
 import Login from './Login.tsx'
 import GamePage from './GamePage.tsx'
 import UserProfile from './UserProfile.tsx'
+import Search from './Search.tsx'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -55,7 +56,13 @@ const userRoute = createRoute({
   path: '/profile'
 });
 
-const navbarRouteTree = navbarRoute.addChildren([ indexRoute, gameRoute, userRoute ]);
+const searchRoute = createRoute({
+  getParentRoute: () => navbarRoute,
+  component: () => <Search />,
+  path: '/search'
+});
+
+const navbarRouteTree = navbarRoute.addChildren([ indexRoute, gameRoute, userRoute, searchRoute ]);
 const routeTree = rootRoute.addChildren([ navbarRouteTree, loginRoute ]);
 const router = createRouter({ routeTree });
 

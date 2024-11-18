@@ -50,6 +50,15 @@ body:hover {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-align: left;
+  color: #ffffff;
+}
+
+body h2 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  text-align: left;
+  color: #ffffff;
 }
 
 button {
@@ -101,13 +110,13 @@ button:focus-visible {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-100%);
+      transform: translateX(-75%);
     }
   }
 
   @keyframes scroll-right {
     0% {
-      transform: translateX(-100%);
+      transform: translateX(-75%);
     }
     100% {
       transform: translateX(0);
