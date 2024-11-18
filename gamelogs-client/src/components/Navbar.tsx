@@ -7,7 +7,10 @@ const Navbar = () => {
             </h1>
             <div className="relative pr-5 flex space-x-4">
                 <div className="flex items-center">
-                <a href="/login">Log In</a>
+                    <a href="/search">Search</a>
+                </div>
+                <div className="flex items-center">
+                    <a href="/login">Log In</a>
                 </div>
                 <form action="/profile">
                   <button className="flex items-center space-x-2">
