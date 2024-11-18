@@ -12,15 +12,17 @@ const games: Game[] = [
     { title: 'Game Five', logo: 'logo', thumbnail: '#D76E6E' },
 ];
 
+const cardHeight = '165px';
+
 const TopRatedGrid = () => {
     return (
         <div className="grid grid-cols-5 gap-4 w-full mb-24">
             {games.map((game, idx) => (
-                <div key={idx} className="relative pb-[66.67%] rounded-lg" style={{ backgroundColor: game.thumbnail }}>
-                    <div className="absolute inset-0 flex flex-col justify-end px-4 py-2">
-                        <h3 className="text-md font-regular flex justify-between">
-                            <span>{game.title}</span>
-                            <span>{game.logo}</span>
+                <div key={idx} className="py-2 px-4 rounded-lg" style={{ minWidth: `calc(1.5 * ${cardHeight})`, height: cardHeight, backgroundColor: game.thumbnail }}>
+                    <div className="flex flex-col justify-end h-full">
+                        <h3 className="text-md font-regular flex justify-between items-end">
+                        <span>{game.title}</span>
+                        <span>{game.logo}</span>
                         </h3>
                     </div>
                 </div>

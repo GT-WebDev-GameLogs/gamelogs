@@ -11,7 +11,7 @@ export default function Search() {
                 <div className="hover:outline hover:outline-white hover:rounded-lg hover:outline-3">
                     <RecommendedGame />
                 </div>
-                <h2 className="text-2xl font-semibold my-4 text-left text-white">Top Rated</h2>
+                <h2 className="text-2xl font-semibold my-4 mt-12 text-left text-white">Top Rated</h2>
                 <TopRatedGrid />
             </div>
         </div>
