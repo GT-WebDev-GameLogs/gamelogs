@@ -9,7 +9,7 @@ import { getGameData, fetchGameWithPlatformAndGenres } from './gameApi.ts';
 
 import { getOAuthAPIClient, getOAuthAuthenticator } from './get-auth';
 import validateLoggedIn from './middleware/auth.ts';
-import { retrieveGame, retrieveUser } from './db/util/db-retrieval.ts';
+import { retrieveGame, retrieveSearchGames, retrieveUser } from './db/util/db-retrieval.ts';
 
 const app: Express = express();
 const PORT: string = process.env.PORT || '7776';
@@ -105,6 +105,15 @@ app.get('/get-user-info/:userId', async (req: Request, res: Response) => {
   } catch (e) {
     console.log(e);
     res.status(500).send("User id unrecognized");
+  }
+});
+
+app.get('/search-games', async (req: any, res: Response) => {
+  try {
+    res.json(await retrieveSearchGames(req.query));
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Search arguments unrecognized");
   }
 });
 

@@ -39,3 +39,15 @@ export async function retrieveUser(userId: Number, offset: Number = 0, limit: Nu
     reviews: reviewInfo.rows,
   }
 }
+
+export async function retrieveSearchGames(args: { search: string, genre: string, platform: string, releaseYear: string, publisher: string }) {
+  const client = new Client(pgConfig);
+  client.connect();
+  const games = await client.query(`SELECT * FROM search_games(${sqlParseString(args.search)}, ${sqlParseString(args.genre)}, ${sqlParseString(args.platform)}, ${sqlParseString(args.releaseYear)}, ${sqlParseString(args.publisher)})`);
+  console.log(games.rows);
+  return games.rows;
+}
+
+function sqlParseString(str: string) {
+  return str ? `'${str.replace(/'/g, "''")}'` : 'NULL';
+}

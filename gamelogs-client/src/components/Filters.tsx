@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 
 const Filters = () => {
+
+  async function startSearch(e: any) {
+    if (e.key === 'Enter') {
+      const data = await (await fetch(`http://localhost:7776/search-games?search=${search}&genre=${selectedGenre}&platform=${selectedPlatform}&releaseYear=${selectedYear}&publisher=${selectedPublisher}`)).json();
+      console.log(data);
+    }
+  }
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedPublisher, setSelectedPublisher] = useState('');
+  const [search, setSearch] = useState('');
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedGenre(e.target.value);
@@ -133,6 +141,8 @@ const Filters = () => {
             type="text"
             className="px-3 py-2 pl-10 bg-gray-800 text-white rounded flex-col w-full"
             placeholder="Search..."
+            onKeyDown={startSearch}
+            onInput={e => setSearch((e.target as HTMLInputElement).value)}
           />
           <span className="absolute mt-2.5 left-3 text-gray-300">
             <svg 

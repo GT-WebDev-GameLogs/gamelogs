@@ -2,7 +2,7 @@ import botw from '../assets/images/botw-featured.jpg';
 
 const FeaturedGame = () => {
   return (
-    <a href="/name_game">
+    <a href="/game/7346">
       <div className="relative">
         <img
           src={botw}
