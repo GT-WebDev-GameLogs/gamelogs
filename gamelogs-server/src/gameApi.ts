@@ -1,25 +1,24 @@
 import axios from 'axios';
 
 // Function to get game data
-export async function getGameData(clientId: string, accessToken: string, query: string = 'fields *; limit 10;') {
-    try {
-      const response = await axios.post(
-        'https://api.igdb.com/v4/games',
-        query,
-        {
-          headers: {
-            'Client-ID': clientId,
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      // console.log('IGDB API response:', response.data);  // Log the response
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching game data from IGDB:', error);  // Log detailed error
-      return null;
-    }
+export async function getGameData(clientId: string, accessToken: string, query: string = 'fields name, cover.url; limit 10;') {
+  try {
+    const response = await axios.post(
+      'https://api.igdb.com/v4/games',
+      query,
+      {
+        headers: {
+          'Client-ID': clientId,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching game data from IGDB:', error);
+    return null;
   }
+}
 
 
 // Function to get platforms by their IDs

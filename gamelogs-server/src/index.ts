@@ -169,6 +169,31 @@ app.get('/games-with-details', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/api/games', async (req: Request, res: Response) => {
+  try {
+    const accessToken = await getAccessToken();
+    if (!accessToken) {
+      return res.status(500).json({ error: 'Failed to get access token' });
+    }
+
+    // Fetch games from IGDB with their cover images
+    const clientId = '6rrnj6z9sksnhvgrnqndg4xubuyvtm' || '76ypv82t56mtjtepnia4tn48y7q0uw';
+    const query = 'fields name, cover.url; limit 100;';
+    const games = await getGameData(clientId, accessToken, query);
+
+    // Transform cover URLs for higher quality
+    const transformedGames = games.map((game: any) => ({
+      id: game.id,
+      name: game.name,
+      coverUrl: game.cover ? game.cover.url.replace('t_thumb', 't_cover_big') : null,
+    }));
+
+    res.json(transformedGames);
+  } catch (error) {
+    console.error('Error fetching game data:', error);
+    res.status(500).json({ error: 'Error fetching game data' });
+  }
+});
 
 
 app.listen(PORT, () => {
