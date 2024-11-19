@@ -1,8 +1,10 @@
-const GameBanner = ({ name }: { name: string }) => {
+const GameBanner = ({ name, coverImage }: { name: string, coverImage: string }) => {
+  const sampleSource = "https://example.com/zelda-banner.jpg"
+  const imgsrc = `https://images.igdb.com/igdb/image/upload/t_720p/${coverImage}.jpg`
     return (
       <div className="relative w-full">
         <img 
-          src="https://example.com/zelda-banner.jpg" 
+          src={imgsrc}
           alt="Game Banner" 
           className="w-full h-64 object-cover"
         />

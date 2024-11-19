@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import Navbar from './components/Navbar.tsx'
 import './index.css'
 import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from '@tanstack/react-router'
-import App from './App.tsx'
+import App from './temp/App.tsx' // change back at some point
 import Login from './Login.tsx'
 import GamePage from './GamePage.tsx'
 import UserProfile from './UserProfile.tsx'
@@ -23,19 +23,41 @@ const rootRoute = createRootRoute({
 
 const navbarRoute = createRoute({
   getParentRoute: () => rootRoute,
-  component: () => (
+  component: ({ route }) => (
     <>
-      <Navbar />
+      <Navbar route={route}/>
       <Outlet />
     </>
   ),
   id: 'navbarlayout',
+  loader: async () => {
+    const userId = await fetch('http://localhost:7776/auth-api/get-logged-in-user-info', {
+      method: 'POST',
+      credentials: 'include',
+    });
+    if (!userId.ok) {
+      console.log('Not logged in');
+      return undefined;
+    }
+    return await userId.json();
+  },
 });
 
 const indexRoute = createRoute({
   getParentRoute: () => navbarRoute,
-  component: () => <App />,
+  component: ({ route }) => <App route={route} />,
   path: '/',
+  loader: async () => {
+    const gameCoverInfo = await fetch('http://localhost:7776/get-games-with-cover?limit=100', {
+      method: 'GET',
+      credentials: 'include',
+    });
+    if (!gameCoverInfo.ok) {
+      console.log('Error geting game cover info');
+      return undefined;
+    }
+    return await gameCoverInfo.json();
+  },
 });
 
 const loginRoute = createRoute({

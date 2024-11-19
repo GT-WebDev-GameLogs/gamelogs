@@ -7,6 +7,7 @@ import { useLoaderData } from '@tanstack/react-router';
 
 interface GameInfo {
   name: string,
+  cover_image: string,
   description: string,
   rating: number,
 }
@@ -29,6 +30,7 @@ function App({ route }: { route: any }) {
     console.log(gameData);
     gameInfo = {
       name: baseGameData['game_name'],
+      cover_image: baseGameData['cover_image'],
       description: baseGameData['game_description'],
       rating: baseGameData['rating'],
     };
@@ -45,6 +47,7 @@ function App({ route }: { route: any }) {
   } catch (e) {
     gameInfo = {
       name: 'The Legend of Zelda: Breath of the Wild',
+      cover_image: 'co3p2d',
       description: `The Legend of Zelda: Breath of the Wild is a 2017 action-adventure game developed and published by Nintendo for the Nintendo Switch and Wii U. Set at the end of the Zelda timeline, the player controls an amnesiac Link as he sets out to save Princess Zelda and prevent Calamity Ganon. The game offers an open world with a focus on exploration and freedom. Players can tackle objectives in any order, using a variety of weapons, abilities, and strategies. It's a groundbreaking title that redefined open-world gameplay and received critical acclaim for its innovation.`,
       rating: 5,
     }
@@ -70,7 +73,7 @@ function App({ route }: { route: any }) {
 
   return (
     <div className="bg-gray-900 min-h-screen text-white">
-      <GameBanner name={gameInfo.name} />
+      <GameBanner name={gameInfo.name} coverImage={gameInfo.cover_image} />
       <div className="max-w-screen-lg mx-auto px-4 py-8">
         <GameDescription {...gameInfo} />
         <Reviews reviews={reviews} />
