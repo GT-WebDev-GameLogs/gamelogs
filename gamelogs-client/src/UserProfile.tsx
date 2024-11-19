@@ -2,6 +2,8 @@ import { useLoaderData } from '@tanstack/react-router';
 import { useState } from 'react';
 
 interface Review {
+    gameId: string;
+    gameCover: string;
     title: string;
     date: string;
     description: string;
@@ -18,16 +20,16 @@ interface User {
 }
 
 const sampleReviews: Review[] = [
-    { title: 'Game One', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Two', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Three', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Four', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Five', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Six', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Seven', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Eight', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Nine', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
-    { title: 'Game Ten', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game One', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Two', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Three', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Four', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Five', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Six', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Seven', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Eight', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Nine', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
+    { gameId: '1', gameCover: 'cover', title: 'Game Ten', date: 'XX days/months/weeks ago', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.' },
 ];
 
 const sampleUser: User = {
@@ -48,6 +50,8 @@ export default function UserProfile({ route }: { route: any }) {
     const baseUserData = userData['base'][0];
     reviews = userData['reviews'].map((review: any) => {
       return {
+        gameId: review['game_id'],
+        gameCover: review['cover_image'],
         title: review['game_name'],
         date: review['review_date'],
         description: review['review_description'],
@@ -118,9 +122,11 @@ export default function UserProfile({ route }: { route: any }) {
                     {reviews.map((review, index) => (
                         <div key={index} className="p-4 border-b border-[#7C7C7C]">
                             <div className="flex items-center space-x-2 mb-2">
-                                <div className="w-8 h-8 rounded-full bg-red-500"></div>
+                                <div className="w-8 h-8 rounded-full bg-red-500">
+                                  <img src={`https://images.igdb.com/igdb/image/upload/t_720p/${review.gameCover}.jpg`} alt="Profile Pic" className="w-full h-full object-cover" />
+                                </div>
                                 <div>
-                                    <h3 className="font-semibold">{review.title}</h3>
+                                    <h3 className="font-semibold"><a href={`/game/${review.gameId}`}>{review.title}</a></h3>
                                     <p className="text-gray-400 text-sm">{review.date}</p>
                                 </div>
                             </div>

@@ -12,6 +12,8 @@ interface GameInfo {
 }
 
 interface Review {
+  userId: string,
+  userPfp: string,
   username: string,
   time: string,
   review: string,
@@ -32,6 +34,8 @@ function App({ route }: { route: any }) {
     };
     baseReviews = gameData['reviews'].map((review: any) => {
       return {
+        userId: review['user_id'],
+        userPfp: review['user_pfp_uri'],
         username: review['user_name'],
         time: review['review_date'],
         review: review['review_description'],
@@ -45,15 +49,17 @@ function App({ route }: { route: any }) {
       rating: 5,
     }
     baseReviews = [
-      { username: 'user1', time: '3 days ago', review: 'Loved the game!', rating: 5},
-      { username: 'user2', time: '1 week ago', review: 'Amazing experience.', rating: 4 },
-      { username: 'user3', time: '5 days ago', review: 'A must-play for any gamer.', rating: 5 }
+      { userId: '1', userPfp: 'pfp', username: 'user1', time: '3 days ago', review: 'Loved the game!', rating: 5},
+      { userId: '2', userPfp: 'pfp', username: 'user2', time: '1 week ago', review: 'Amazing experience.', rating: 4 },
+      { userId: '3', userPfp: 'pfp', username: 'user3', time: '5 days ago', review: 'A must-play for any gamer.', rating: 5 }
     ]
     console.log(e);
   }
   const [reviews, setReviews] = useState<Review[]>(baseReviews);
   const addNewReview = (newReview: string) => {
     const newEntry = {
+      userId: 'test',
+      userPfp: 'pfp',
       username: 'newUser',
       time: 'just now',
       review: newReview,

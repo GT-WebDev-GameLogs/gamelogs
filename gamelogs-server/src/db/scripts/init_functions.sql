@@ -91,12 +91,13 @@ RETURNS TABLE(
     rating               VALID_RATING,
     review_description   TEXT,
     review_date          TIMESTAMP,
-    user_name            TEXT
+    user_name            TEXT,
+    user_pfp_uri         TEXT
 )
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT r.*, u.user_name
+    SELECT r.*, u.user_name, u.user_pfp_uri
     FROM review r
     INNER JOIN gl_user u
     ON u.user_id = r.user_id
@@ -117,12 +118,13 @@ RETURNS TABLE(
     review_description   TEXT,
     review_date          TIMESTAMP,
     user_name            TEXT,
-    game_name            TEXT
+    game_name            TEXT,
+    cover_image          TEXT
 )
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT r.*, u.user_name, g.game_name
+    SELECT r.*, u.user_name, g.game_name, g.cover_image
     FROM review r
     INNER JOIN gl_user u
     ON u.user_id = r.user_id
@@ -136,14 +138,27 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION
-search_games(IN search TEXT, IN genre TEXT, IN platform TEXT, IN release_year TEXT, IN publisher TEXT)
+search_games(IN p_search TEXT, IN p_genre TEXT, IN p_platform TEXT, IN p_release_year TEXT, IN p_publisher TEXT)
 RETURNS TABLE (
     game_id INT,
     game_name TEXT,
+    cover_image TEXT,
     rating REAL
 )
 AS $$
 BEGIN
-
+    RETURN QUERY
+    SELECT DISTINCT g.game_id, g.game_name, g.cover_image, g.rating
+    FROM game g
+    INNER JOIN game_genre gg ON gg.game_id = g.game_id
+    INNER JOIN genre gr ON gg.genre_id = gr.genre_id
+    INNER JOIN game_platform gp ON gp.game_id = g.game_id
+    INNER JOIN platform p ON gp.platform_id = p.platform_id
+    INNER JOIN game_publisher gpu ON gpu.game_id = g.game_id
+    INNER JOIN involved_company ic ON gpu.publisher_id = ic.company_id
+    WHERE g.game_name ILIKE CONCAT('%', p_search, '%') AND
+        gr.genre_name ILIKE CONCAT('%', p_genre, '%') AND
+        p.platform_name ILIKE CONCAT('%', p_platform, '%') AND
+        ic.company_name ILIKE CONCAT('%', p_publisher, '%');
 END;
 $$ LANGUAGE plpgsql;

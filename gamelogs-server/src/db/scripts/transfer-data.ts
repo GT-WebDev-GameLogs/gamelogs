@@ -97,10 +97,10 @@ async function addToGameTable(igdbOffset: number, limit: number = 500) {
       involved_companies.publisher,
       cover.image_id
     ;
-    where (category != (1, 3, 5)) & (status != (6, 7)) & themes != (42);
+    where (category != (1, 3, 5)) & themes != (42);
     limit ${limit};
     offset ${igdbOffset};
-  `;
+  `; // removed status != (6, 7) since some datapoints did not have a status value
   const games = await getGameData(IGDB_CLIENT_ID, accessToken, query);
 
   // console.log(games);
@@ -190,4 +190,4 @@ async function fillDatabase() {
 
 }
 
-addToGameTable(1000, 500);
+addToGameTable(0, 500);
