@@ -58,6 +58,7 @@ CREATE TABLE game (
     game_name           TEXT,
     rating              REAL DEFAULT 0,
     game_description    TEXT,
+    cover_image         TEXT,
     PRIMARY KEY         (game_id),
     UNIQUE              (game_name)
 );

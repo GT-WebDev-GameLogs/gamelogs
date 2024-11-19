@@ -134,3 +134,16 @@ BEGIN
     OFFSET p_offset;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION
+search_games(IN search TEXT, IN genre TEXT, IN platform TEXT, IN release_year TEXT, IN publisher TEXT)
+RETURNS TABLE (
+    game_id INT,
+    game_name TEXT,
+    rating REAL
+)
+AS $$
+BEGIN
+
+END;
+$$ LANGUAGE plpgsql;

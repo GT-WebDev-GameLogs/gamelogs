@@ -22,14 +22,15 @@ add_igdb_game_data(
     IN p_game_name        TEXT,
     IN p_rating           REAL,
     IN p_game_description TEXT,
+    IN p_cover_image      TEXT,
     IN multi_data         game_multivalue_data[]
 ) AS $$
 DECLARE
     gd game_multivalue_data;
 BEGIN
     -- Insert to game table
-    INSERT INTO game (game_id, game_name, rating, game_description)
-    VALUES (p_game_id, p_game_name, p_rating, p_game_description)
+    INSERT INTO game (game_id, game_name, rating, game_description, cover_image)
+    VALUES (p_game_id, p_game_name, p_rating, p_game_description, p_cover_image)
     ON CONFLICT DO NOTHING; -- change to raise notice
 
     IF multi_data IS NOT NULL THEN

@@ -2,7 +2,7 @@ import 'dotenv/config';
 import axios from 'axios';
 import pg from 'pg';
 import { getGameData } from '../../gameApi.ts';
-import { getAccessToken } from 'src/twitchApi.ts';
+import { getAccessToken } from '../../twitchApi.ts';
 
 const { Client } = pg;
 const pgConfig: pg.ConnectionConfig = {
@@ -29,7 +29,11 @@ interface GameMultiValueData {
 }
 
 function undefinedTo0(any?: any): any {
-  return any === undefined ? 0 : any
+  return any === undefined ? 0 : any;
+}
+
+function undefinedToNull(any?: any): any {
+  return any === undefined ? 'NULL' : any;
 }
 
 function createGameMultiValueData(): GameMultiValueData {
@@ -90,7 +94,8 @@ async function addToGameTable(igdbOffset: number, limit: number = 500) {
       platforms.name,
       involved_companies.company.name,
       involved_companies.developer,
-      involved_companies.publisher
+      involved_companies.publisher,
+      cover.image_id
     ;
     where (category != (1, 3, 5)) & (status != (6, 7)) & themes != (42);
     limit ${limit};
@@ -98,13 +103,14 @@ async function addToGameTable(igdbOffset: number, limit: number = 500) {
   `;
   const games = await getGameData(IGDB_CLIENT_ID, accessToken, query);
 
-  console.log(games);
+  // console.log(games);
 
   for (const game of games) {
     const gameId: number = game.id;
     const gameName: string = game.name;
     const rating: number = 0;
     const description: string = game.summary;
+    const cover_image: string = game.cover?.image_id;
 
     const multiDataSize = Math.max(
       undefinedTo0(game.genres?.length), 
@@ -156,6 +162,7 @@ async function addToGameTable(igdbOffset: number, limit: number = 500) {
         ${sqlParseString(gameName)},
         ${rating},
         ${sqlParseString(description)},
+        ${sqlParseString(cover_image)},
         ${
           multiDataSize != 0 ? `ARRAY[${multiData.map(mapGameMultiValueDataToSQL)}]` : 'NULL'
         })
@@ -183,4 +190,4 @@ async function fillDatabase() {
 
 }
 
-addToGameTable(0, 500);
+addToGameTable(1000, 500);
